@@ -16,3 +16,12 @@
 .media-right .icon {
   background-color: #35b8c2;
 }
+
+pre {
+  white-space: pre-wrap;
+}
+
+.chat-line {
+  max-height: 85%;
+  overflow: auto;
+}

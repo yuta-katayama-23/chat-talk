@@ -1,33 +1,21 @@
 <div class="container border vh-100">
-  <section>
+  <section class="chat-line">
     <div class="d-flex flex-column">
-      <div class="list-group-item list-group-item-action flex-column align-items-start border-0 mb-3">
-        <div class="d-flex flex-row row">
-          <div class="media-left col-1">
-            <a href="#" class="icon border rounded text-center">竹</a>
+      <div *ngFor="let post of posts"
+        class="list-group-item list-group-item-action flex-column align-items-start border-0 mb-1">
+        <div class="d-flex flex-row">
+          <div *ngIf="currentUser.uid !== post.user.uid" class="media-left col-1">
+            <a href="#" class="icon border rounded text-center">{{ post.user.initial}}</a>
           </div>
           <div class="bg-light col-11 p-3">
-            <div class="d-flex w-100 justify-content-between">
-              <h6>竹井 賢治</h6>
-              <small>2020/12/01</small>
+            <div class="d-flex justify-content-between">
+              <span class="text-secondary">{{ post.user.name }}</span>
+              <small>{{ post.date | postDate }}</small>
             </div>
-            <div class="w-100">
-              ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。
-            </div>
+            <pre class="w-100">{{ post.message }}</pre>
           </div>
-        </div>
-      </div>
-      <div class="list-group-item list-group-item-action flex-column align-items-start border-0 mb-3">
-        <div class="d-flex flex-row row">
-          <div class="bg-light col-11 p-3">
-            <div class="d-flex w-100 justify-content-between">
-              <h6>五十川 洋平</h6>
-              <small>2020/12/01</small>
-            </div>
-            <div class="w-100">ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。ダミーテキスト。</div>
-          </div>
-          <div class="media-right col-1">
-            <a href="#" class="icon border rounded text-center">五</a>
+          <div *ngIf="currentUser.uid === post.user.uid" class="media-right col-1 d-flex flex-row justify-content-end">
+            <a href="#" class="icon border rounded text-center">{{ post.user.initial}}</a>
           </div>
         </div>
       </div>
@@ -39,11 +27,14 @@
       <form class="chat-form">
         <div class="form-header d-flex flex-row-reverse mb-2">
           <span class="input-group-btn">
-            <button class="btn btn-info btn-sm" type="submit" tabindex="2">送信</button>
+            <button (click)="addPost(message); message = '';" class="btn btn-info btn-sm" type="submit" tabindex="2">
+              送信
+            </button>
           </span>
         </div>
         <div class="input-group">
-          <textarea class="form-control" placeholder="メッセージを入力" tabindex="1"></textarea>
+          <textarea [(ngModel)]="message" name="message" class="form-control" placeholder="メッセージを入力" tabindex="1">
+          </textarea>
         </div>
       </form>
     </div>
