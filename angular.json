@@ -33,6 +33,11 @@
             ],
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "firebase",
+              "@firebase/auth",
+              "@firebase/database"
             ]
           },
           "configurations": {
@@ -123,6 +128,10 @@
               "devServerTarget": "chat-talk:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "chat-talk-ac510": {
+      "hosting": {
+        "chat-talk": [
+          "chat-talk-ac510"
+        ]
+      }
+    }
+  }
+}
