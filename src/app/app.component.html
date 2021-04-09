@@ -9,10 +9,22 @@
           </div>
           <div class="bg-light col-11 p-3">
             <div class="d-flex justify-content-between">
-              <span class="text-secondary">{{ post.user.name }}</span>
+              <span class="text-secondary">{{ post.user.name }}
+                <ng-container *ngIf="post.user.uid === currentUser.uid">
+                  <i class="fa fa-edit ms-2" title="編集" (click)="post.isEdit = !post.isEdit"></i>
+                  <i class="fa fa-trash ms-2" title="削除"></i>
+                </ng-container>
+              </span>
               <small>{{ post.date | postDate }}</small>
             </div>
-            <pre class="w-100">{{ post.message }}</pre>
+            <ng-container *ngIf="!post.isEdit">
+              <pre class="w-100">{{ post.message }}</pre>
+            </ng-container>
+            <ng-container *ngIf="post.isEdit">
+              <textarea [(ngModel)]="post.message" name="edit-message" class="form-control"></textarea>
+              <button class="btn btn-success btn-sm mt-1 me-1">保存</button>
+              <button class="btn btn-warning btn-sm mt-1 me-1">キャンセル</button>
+            </ng-container>
           </div>
           <div *ngIf="currentUser.uid === post.user.uid" class="media-right col-1 d-flex flex-row justify-content-end">
             <a href="#" class="icon border rounded text-center">{{ post.user.initial}}</a>

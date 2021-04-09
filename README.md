@@ -5,6 +5,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## 今後実装する機能
 
 - チャット投稿時に画面が一番下にスクロールされる
+- 変種・削除のアイコンに hover した時に表示される text を装飾する
 
 ## Development server
 
