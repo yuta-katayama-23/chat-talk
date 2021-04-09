@@ -1,7 +1,7 @@
 <div class="container border vh-100">
   <section class="chat-line">
     <div class="d-flex flex-column">
-      <div *ngFor="let post of posts"
+      <div *ngFor="let post of posts$ | async"
         class="list-group-item list-group-item-action flex-column align-items-start border-0 mb-1">
         <div class="d-flex flex-row">
           <div *ngIf="currentUser.uid !== post.user.uid" class="media-left col-1">
@@ -42,7 +42,7 @@
       <form class="chat-form">
         <div class="form-header d-flex flex-row-reverse mb-2">
           <span class="input-group-btn">
-            <button (click)="addPost(message); message = '';" class="btn btn-info btn-sm" type="submit" tabindex="2">
+            <button (click)="addPost(message);" class="btn btn-info btn-sm" type="submit" tabindex="2">
               送信
             </button>
           </span>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AngularFireDatabase } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 
 import { Post } from './class/post';
@@ -21,18 +21,23 @@ const POSTS: Post[] = [
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  posts = POSTS;
+  // posts = POSTS;
+  posts$: Observable<Post[]>;
+  postsRef: AngularFireList<Post>;
   currentUser = CURRENT_USER;
   message = '';
   item$: Observable<any>;
 
   constructor(private db: AngularFireDatabase) {
     this.item$ = db.object('/item').valueChanges();
+    this.postsRef = db.list('/posts');
+    this.posts$ = this.postsRef.valueChanges();
   }
 
   addPost(message: string): void {
     if (message) {
-      this.posts.push(new Post(this.currentUser, message));
+      this.postsRef.push(new Post(this.currentUser, message));
+      this.message = '';
     }
   }
 }
