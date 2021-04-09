@@ -19,6 +19,21 @@
           </div>
         </div>
       </div>
+
+      <div *ngIf="item$ | async as item"
+        class="list-group-item list-group-item-action flex-column align-items-start border-0 mb-1">
+        <div class="d-flex flex-row">
+          <div class="media-left col-1">
+            <a href="#" class="icon border rounded text-center"></a>
+          </div>
+          <div class="bg-light col-11 p-3">
+            <div class="d-flex justify-content-between">
+              <span class="text-secondary">{{ item.name }}</span>
+            </div>
+            <pre class="w-100">{{ item.message }}</pre>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 

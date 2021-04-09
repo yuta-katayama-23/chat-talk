@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
+import { Observable } from 'rxjs';
 
 import { Post } from './class/post';
 import { User } from './class/user';
@@ -22,6 +24,11 @@ export class AppComponent {
   posts = POSTS;
   currentUser = CURRENT_USER;
   message = '';
+  item$: Observable<any>;
+
+  constructor(private db: AngularFireDatabase) {
+    this.item$ = db.object('/item').valueChanges();
+  }
 
   addPost(message: string): void {
     if (message) {
