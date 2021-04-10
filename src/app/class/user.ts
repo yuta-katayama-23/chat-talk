@@ -10,6 +10,6 @@ export class User {
     this.email = user.email;
     this.photoURL = user.photoURL;
     this.uid = user.uid;
-    this.initial = user.displayName.slice(0, 1);
+    this.initial = user.displayName ? user.displayName.slice(0, 1) : null;
   }
 }

@@ -34,8 +34,12 @@ export class ChatComponent implements OnInit {
     this.currentUser$ = this.auth.authState.pipe(
       map(user => {
         if (user) {
+          // FIXME 非同期処理なので、this.currentUserにセットするのが、NewUserComponentのupdateの後とは限らず、
+          // その場合、displayNameが空になってしまう
+          // 今はaddPostで無理くり修正した
           this.currentUser = new User(user);
           this.loginValid = true;
+          console.log(this.currentUser);
           return this.currentUser;
         }
         return null;
@@ -55,7 +59,18 @@ export class ChatComponent implements OnInit {
 
   addPost(postMsg: string): void {
     if (postMsg) {
-      this.postsRef.push(new Post({ user: this.currentUser, message: postMsg }));
+      if (!this.currentUser.displayName) {
+        this.auth.authState.pipe(
+          map(user => {
+            if (user) {
+              this.currentUser = new User(user);
+              this.postsRef.push(new Post({ user: this.currentUser, message: postMsg }));
+            }
+          })
+        ).subscribe();
+      } else {
+        this.postsRef.push(new Post({ user: this.currentUser, message: postMsg }));
+      }
     }
   }
 
