@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase, AngularFireList, SnapshotAction, snapshotChanges } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,8 +7,6 @@ import { map } from 'rxjs/operators';
 import { Post } from '../class/post';
 import { User } from '../class/user';
 
-const CURRENT_USER = new User('1', '田中 太郎');
-const ANOTHER_USER = new User('2', '小平 花子');
 
 @Component({
   selector: 'ct-chat',
@@ -18,11 +17,23 @@ export class ChatComponent implements OnInit {
   posts$: Observable<Post[]>;
   postsRef: AngularFireList<Post>;
 
-  currentUser = CURRENT_USER;
+  currentUser: User;
   message = '';
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(
+    private db: AngularFireDatabase,
+    private auth: AngularFireAuth
+  ) {
     this.postsRef = db.list('/posts');
+  }
+
+  ngOnInit(): void {
+    this.auth.authState.subscribe(user => {
+      if (user) {
+        this.currentUser = new User(user);
+      }
+    });
+
     this.posts$ = this.postsRef.snapshotChanges()
       .pipe(
         map((snapshots: SnapshotAction<Post>[]) => {
@@ -32,9 +43,6 @@ export class ChatComponent implements OnInit {
           });
         })
       );
-  }
-
-  ngOnInit(): void {
   }
 
   addPost(postMsg: string): void {
