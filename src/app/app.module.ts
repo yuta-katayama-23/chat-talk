@@ -10,12 +10,14 @@ import { AppComponent } from './app.component';
 import { PostDatePipe } from './pipes/post-date.pipe';
 
 import { environment } from 'src/environments/environment';
+import { ChatComponent } from './chat/chat.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostDatePipe
+    PostDatePipe,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
