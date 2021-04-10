@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase, AngularFireList, SnapshotAction, snapshotChanges } from '@angular/fire/database';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 import { Post } from '../class/post';
 import { User } from '../class/user';
@@ -60,17 +60,15 @@ export class ChatComponent implements OnInit {
   addPost(postMsg: string): void {
     if (postMsg) {
       if (!this.currentUser.displayName) {
-        this.auth.authState.pipe(
-          map(user => {
-            if (user) {
-              this.currentUser = new User(user);
+        this.db.list<User>('/users').valueChanges()
+          .pipe(
+            map((users: User[]) => {
+              const filtered = users.filter(user => user.uid === this.currentUser.uid);
+              this.currentUser = new User(filtered[0]);
               this.postsRef.push(new Post({ user: this.currentUser, message: postMsg }));
-            }
-          })
-        ).subscribe();
-      } else {
-        this.postsRef.push(new Post({ user: this.currentUser, message: postMsg }));
-      }
+            })
+          ).subscribe();
+      } else { this.postsRef.push(new Post({ user: this.currentUser, message: postMsg })); }
     }
   }
 
