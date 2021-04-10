@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../feature/services/auth.service';
+import { UserService } from '../feature/services/user.service';
 
 @Component({
   selector: 'ct-sign-up',
@@ -12,7 +12,7 @@ export class SignUpComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -22,7 +22,7 @@ export class SignUpComponent implements OnInit {
     console.log(form.value);
     const { email, password } = form.value;
 
-    this.authService.create(email, password)
+    this.userService.create(email, password)
       .then(() => this.router.navigateByUrl('/users/new'))
       .catch((error) => console.log(error, error));
   }
