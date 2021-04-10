@@ -22,6 +22,11 @@ export class AuthService {
       });
   }
 
+  login(email: string, password: string): Promise<any | void> {
+    return this.auth.signInWithEmailAndPassword(email, password)
+      .catch(error => console.error(error));
+  }
+
   logout(): Promise<void> {
     return this.auth.signOut();
   }

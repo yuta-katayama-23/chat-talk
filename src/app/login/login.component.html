@@ -1,13 +1,13 @@
 <div class="container form-signin text-center mt-5 w-25">
-  <form class="row g-3">
+  <form #form="ngForm" (ngSubmit)="login(form)" class="row g-3">
     <h1 class="h3 mb-3 fw-normal">ログイン</h1>
 
     <div class="form-floating">
-      <input name="email" type="email" class="form-control" placeholder="name@example.com">
+      <input ngModel name="email" type="email" class="form-control" placeholder="name@example.com">
       <label for="floatingInput">メールアドレス</label>
     </div>
     <div class="form-floating">
-      <input name="password" type="password" class="form-control" placeholder="Password">
+      <input ngModel name="password" type="password" class="form-control" placeholder="Password">
       <label for="floatingPassword">パスワード</label>
     </div>
 
