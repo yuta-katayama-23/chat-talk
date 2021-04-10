@@ -21,4 +21,8 @@ export class AuthService {
         user.sendEmailVerification(actionCodeSettings);
       });
   }
+
+  logout(): Promise<void> {
+    return this.auth.signOut();
+  }
 }

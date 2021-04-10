@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'ct-header',
@@ -10,7 +12,11 @@ export class HeaderComponent implements OnInit {
 
   isLogin: boolean;
 
-  constructor(private auth: AngularFireAuth) { }
+  constructor(
+    private auth: AngularFireAuth,
+    private router: Router,
+    private authService: AuthService
+  ) { }
 
   ngOnInit(): void {
     this.auth.onAuthStateChanged(user => {
@@ -18,6 +24,11 @@ export class HeaderComponent implements OnInit {
       else { this.isLogin = false; }
       console.log(this.isLogin);
     });
+  }
+
+  logout(): void {
+    this.authService.logout()
+      .then(() => this.router.navigateByUrl('/login'));
   }
 
 }
