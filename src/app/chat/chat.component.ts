@@ -18,7 +18,10 @@ export class ChatComponent implements OnInit {
   postsRef: AngularFireList<Post>;
 
   currentUser: User;
+  currentUser$: Observable<User>;
   message = '';
+
+  loginValid: boolean;
 
   constructor(
     private db: AngularFireDatabase,
@@ -28,11 +31,16 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auth.authState.subscribe(user => {
-      if (user) {
-        this.currentUser = new User(user);
-      }
-    });
+    this.currentUser$ = this.auth.authState.pipe(
+      map(user => {
+        if (user) {
+          this.currentUser = new User(user);
+          this.loginValid = true;
+          return this.currentUser;
+        }
+        return null;
+      })
+    );
 
     this.posts$ = this.postsRef.snapshotChanges()
       .pipe(
