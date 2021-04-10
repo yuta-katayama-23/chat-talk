@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'ct-header',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  isLogin: boolean;
+
+  constructor(private auth: AngularFireAuth) { }
 
   ngOnInit(): void {
+    this.auth.onAuthStateChanged(user => {
+      if (user) { this.isLogin = true; }
+      else { this.isLogin = false; }
+      console.log(this.isLogin);
+    });
   }
 
 }

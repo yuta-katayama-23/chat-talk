@@ -1,4 +1,5 @@
 <nav class="navbar justify-content-between fixed-top border-bottom p-3 navbar-dark bg-secondary">
   <a routerLink="/" class="navbar-brand">Chat Talk</a>
-  <a routerLink="/signup" class="navbar-text">Login</a>
+  <a *ngIf="!isLogin" routerLink="/login" class="navbar-text">Login</a>
+  <a *ngIf="isLogin" routerLink="/logout" class="navbar-text">Logout</a>
 </nav>
