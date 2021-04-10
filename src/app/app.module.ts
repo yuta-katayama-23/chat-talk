@@ -8,12 +8,14 @@ import { ChatComponent } from './chat/chat.component';
 
 import { FeatureModule } from './feature/feature.module';
 import { SharedModule } from './shared/shared.module';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
+    ChatComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
