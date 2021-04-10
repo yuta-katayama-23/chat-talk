@@ -17,8 +17,10 @@ const ANOTHER_USER = new User('2', '小平 花子');
 export class AppComponent {
   posts$: Observable<Post[]>;
   postsRef: AngularFireList<Post>;
+
   currentUser = CURRENT_USER;
   message = '';
+
   item$: Observable<any>;
 
   constructor(private db: AngularFireDatabase) {
@@ -40,5 +42,17 @@ export class AppComponent {
       this.postsRef.push(new Post({ user: this.currentUser, message: postMsg }));
       this.message = '';
     }
+  }
+
+  updatePost(post: Post): void {
+    // 省略形として以下の書き方もある
+    // const {key , message} = post;
+    // this.postsRef.update(key, { message });
+
+    this.postsRef.update(post.key, { message: post.message });
+  }
+
+  deletePost(post: Post): void {
+    this.postsRef.remove(post.key);
   }
 }
