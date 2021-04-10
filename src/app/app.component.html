@@ -31,21 +31,6 @@
           </div>
         </div>
       </div>
-
-      <div *ngIf="item$ | async as item"
-        class="list-group-item list-group-item-action flex-column align-items-start border-0 mb-1">
-        <div class="d-flex flex-row">
-          <div class="media-left col-1">
-            <a href="#" class="icon border rounded text-center"></a>
-          </div>
-          <div class="bg-light col-11 p-3">
-            <div class="d-flex justify-content-between">
-              <span class="text-secondary">{{ item.name }}</span>
-            </div>
-            <pre class="w-100">{{ item.message }}</pre>
-          </div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -54,13 +39,13 @@
       <form class="chat-form">
         <div class="form-header d-flex flex-row-reverse mb-2">
           <span class="input-group-btn">
-            <button (click)="addPost(message);" class="btn btn-info btn-sm" type="submit" tabindex="2">
+            <button (click)="addPost(message); message = '';" class="btn btn-info btn-sm" type="submit" tabindex="2">
               送信
             </button>
           </span>
         </div>
         <div class="input-group">
-          <textarea [(ngModel)]="message" name="message" class="form-control" placeholder="メッセージを入力" tabindex="1">
+          <textarea [(ngModel)]="message" name="input-message" class="form-control" placeholder="メッセージを入力" tabindex="1">
           </textarea>
         </div>
       </form>

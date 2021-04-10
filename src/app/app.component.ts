@@ -21,10 +21,7 @@ export class AppComponent {
   currentUser = CURRENT_USER;
   message = '';
 
-  item$: Observable<any>;
-
   constructor(private db: AngularFireDatabase) {
-    this.item$ = db.object('/item').valueChanges();
     this.postsRef = db.list('/posts');
     this.posts$ = this.postsRef.snapshotChanges()
       .pipe(
@@ -40,7 +37,6 @@ export class AppComponent {
   addPost(postMsg: string): void {
     if (postMsg) {
       this.postsRef.push(new Post({ user: this.currentUser, message: postMsg }));
-      this.message = '';
     }
   }
 
