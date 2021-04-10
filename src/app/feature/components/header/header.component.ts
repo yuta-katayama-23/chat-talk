@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
     this.auth.onAuthStateChanged(user => {
       if (user) { this.isLogin = true; }
       else { this.isLogin = false; }
-      console.log(this.isLogin);
     });
   }
 
