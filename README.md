@@ -7,6 +7,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 - チャット投稿時に画面が一番下にスクロールされる
 - 変種・削除のアイコンに hover した時に表示される text を装飾する
 
+## Bug Fix
+
+- chat 内容の入力枠の幅が外側の div の幅になってない
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

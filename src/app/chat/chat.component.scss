@@ -33,3 +33,9 @@ pre {
 .fa:hover {
   color: rgb(75, 73, 73);
 }
+
+.fixed {
+  bottom: 0;
+  position: fixed;
+  width: fit-content;
+}
