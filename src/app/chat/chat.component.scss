@@ -22,8 +22,8 @@ pre {
 }
 
 .chat-line {
-  max-height: 78.2%;
   overflow: auto;
+  flex: auto;
 }
 
 .fa {
@@ -35,7 +35,9 @@ pre {
 }
 
 .fixed {
-  bottom: 0;
-  position: fixed;
-  width: fit-content;
+  width: 100%;
+}
+
+.row {
+  flex: auto;
 }

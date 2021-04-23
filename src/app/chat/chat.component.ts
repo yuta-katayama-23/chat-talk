@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFireDatabase, AngularFireList, SnapshotAction, snapshotChanges } from '@angular/fire/database';
+import { AngularFireDatabase, AngularFireList, SnapshotAction } from '@angular/fire/database';
 import { Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { Post } from '../class/post';
 import { User } from '../class/user';
@@ -55,6 +55,10 @@ export class ChatComponent implements OnInit {
           });
         })
       );
+
+    setTimeout(() => {
+      this.scrollBottom();
+    }, 1500);
   }
 
   addPost(postMsg: string): void {
@@ -68,7 +72,12 @@ export class ChatComponent implements OnInit {
               this.postsRef.push(new Post({ user: this.currentUser, message: postMsg }));
             })
           ).subscribe();
-      } else { this.postsRef.push(new Post({ user: this.currentUser, message: postMsg })); }
+      } else {
+        this.postsRef.push(new Post({ user: this.currentUser, message: postMsg }))
+          .then(() => {
+            this.scrollBottom();
+          });
+      }
     }
   }
 
@@ -84,4 +93,8 @@ export class ChatComponent implements OnInit {
     this.postsRef.remove(post.key);
   }
 
+  private scrollBottom(): void {
+    const obj = document.querySelector('.chat-line');
+    obj.scrollTop = obj.scrollHeight;
+  }
 }

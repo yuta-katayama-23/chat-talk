@@ -5,7 +5,7 @@ export class User {
   uid: string;
   initial: string;
 
-  constructor(user) {
+  constructor(user: User | any) {
     this.displayName = user.displayName;
     this.email = user.email;
     this.photoURL = user.photoURL ? user.photoURL : null;

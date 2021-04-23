@@ -1,1 +1,10 @@
-<p>user-list works!</p>
+<ul id="arganization-filter-list" class="list-group">
+  <li *ngFor="let user of users$ | async" class="list-group-item">
+    <a [routerLink]="['users', user.uid]">
+      <div class="image">
+        <img src="//placehold.jp/30x30.png" alt="{{ user.displayName }}" class="rounded-circle">
+      </div>
+      {{ user.displayName}}
+    </a>
+  </li>
+</ul>

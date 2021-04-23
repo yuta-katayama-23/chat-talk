@@ -2,4 +2,9 @@
 @import "~bootstrap/scss/bootstrap";
 body {
   overflow: hidden;
+  height: 100%;
+}
+
+html {
+  height: 100%;
 }
